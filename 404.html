@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
     <title>âme</title>
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
@@ -23,7 +23,20 @@
         flex: 1;
       }
     </style>
-  <link rel="icon" href="/ame-app/favicon.ico"/></head>
+  <link rel="icon" href="/ame-app/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="âme">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#DDD4C5">
+    <link rel="manifest" href="/ame-app/manifest.json">
+    <link rel="apple-touch-icon" href="/ame-app/apple-touch-icon.png">
+    <style>
+      html, body { background-color: #F2EFE9; overscroll-behavior: none; }
+      body { margin: 0; -webkit-tap-highlight-color: transparent; }
+    </style>
+  </head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
