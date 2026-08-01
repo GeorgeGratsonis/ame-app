@@ -33,18 +33,66 @@
     <link rel="manifest" href="/ame-app/manifest.json">
     <link rel="apple-touch-icon" href="/ame-app/apple-touch-icon.png">
     <style>
-      html, body { background-color: #F2EFE9; overscroll-behavior: none; }
+      html, body { background-color: #DDD4C5; overscroll-behavior: none; }
       body { margin: 0; -webkit-tap-highlight-color: transparent; }
+
+      /* The boot layer. Painted by the browser before a single line of app code
+         runs, which is the whole point: the JS bundle is megabytes and until it
+         parses, React cannot draw anything at all. Without this the app opens on
+         a white page for several seconds, which is exactly what a home-screen
+         icon must never do. */
+      #ame-boot {
+        position: fixed; inset: 0; z-index: 2147483647;
+        background: #DDD4C5;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 1; transition: opacity 420ms ease-out;
+      }
+      #ame-boot.ame-boot-out { opacity: 0; pointer-events: none; }
+      #ame-boot img {
+        width: 92px; height: 92px;
+        animation: ame-breathe 5s cubic-bezier(.4,0,.5,1) infinite;
+      }
+      /* The same breath the in-app loader uses, expressed in CSS so it runs on
+         the compositor while the main thread is busy parsing the bundle. */
+      @keyframes ame-breathe {
+        0%   { transform: scale(.93) translateY(3px); opacity: .75; }
+        38%  { transform: scale(1.07) translateY(-3px); opacity: 1; }
+        100% { transform: scale(.93) translateY(3px); opacity: .75; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #ame-boot img { animation: ame-fade 1.8s ease-in-out infinite; }
+        @keyframes ame-fade { 0%,100% { opacity:.6 } 50% { opacity:1 } }
+      }
     </style>
   </head>
 
   <body>
+    <div id="ame-boot"><img src="/ame-app/boot-mark.png" alt="âme" width="92" height="92"></div>
+    <script>
+      // The app calls this when it has fonts and its first data, so the seam is
+      // invisible: the React splash is already painted underneath before this
+      // layer fades. The timeout is a failsafe — a boot screen that can wedge
+      // forever is worse than one that reveals a half-ready app.
+      (function () {
+        var el = document.getElementById('ame-boot');
+        var gone = false;
+        function dismiss() {
+          if (gone || !el) return;
+          gone = true;
+          el.className = 'ame-boot-out';
+          setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
+        }
+        window.__ameBootDismiss = dismiss;
+        setTimeout(dismiss, 12000);
+      })();
+    </script>
+
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-70a2e5a0212432a5dfaaf76869e397ca.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-0866798c03b3189702131e6511971eca.js" defer></script>
 </body>
 </html>
