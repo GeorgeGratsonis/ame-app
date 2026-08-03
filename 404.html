@@ -48,34 +48,41 @@
         opacity: 1; transition: opacity 420ms ease-out;
       }
       #ame-boot.ame-boot-out { opacity: 0; pointer-events: none; }
-      /* The opening: the name writes itself. A sand cover slides off the
-         wordmark (translate-only — the mark itself never moves or scales,
-         the owner's rule), then a hair-thin line below breathes in opacity
-         while the bundle keeps loading. All compositor work. */
-      .ame-mark { position: relative; overflow: hidden; }
-      .ame-mark img { display: block; width: 200px; height: auto; }
-      .ame-cover {
-        position: absolute; top: -4px; bottom: -4px; left: -6px;
-        width: calc(100% + 12px); background: #DDD4C5;
-        animation: ame-write 950ms cubic-bezier(.65,0,.35,1) 150ms forwards;
+      /* The opening the owner chose: the name arrives perfectly still — a
+         fade, no motion of the mark — while a thin espresso light sweeps
+         once beneath it. If loading lingers, a hair-thin line breathes in
+         opacity. All compositor work; the logo never moves or scales. */
+      .ame-mark { position: relative; }
+      .ame-mark img {
+        display: block; width: 200px; height: auto;
+        animation: ame-fadein 600ms cubic-bezier(.33,1,.68,1) both;
       }
-      @keyframes ame-write { to { transform: translateX(calc(100% + 12px)); } }
+      @keyframes ame-fadein { from { opacity: 0 } to { opacity: 1 } }
+      .ame-sweep {
+        position: absolute; left: 0; top: calc(100% + 18px);
+        width: 90px; height: 2px; background: #311D10; opacity: 0;
+        animation: ame-sweep 1.15s cubic-bezier(.33,1,.68,1) .2s forwards;
+      }
+      @keyframes ame-sweep {
+        0%   { transform: translateX(0);     opacity: 0; }
+        12%  { opacity: .43; }
+        78%  { opacity: .43; }
+        100% { transform: translateX(110px); opacity: 0; }
+      }
       .ame-wait {
-        margin: 28px auto 0; width: 36px; height: 1px; background: #311D10;
-        opacity: 0; animation: ame-waitpulse 2.6s ease-in-out 1.6s infinite;
+        margin: 30px auto 0; width: 36px; height: 1px; background: #311D10;
+        opacity: 0; animation: ame-waitpulse 2.6s ease-in-out 1.8s infinite;
       }
       @keyframes ame-waitpulse { 0%,100% { opacity: 0 } 50% { opacity: .35 } }
       @media (prefers-reduced-motion: reduce) {
-        .ame-cover { animation: none; opacity: 0; }
+        .ame-sweep { animation: none; }
         .ame-wait { animation: none; }
-        .ame-mark img { animation: ame-fadein .4s ease-out both; }
-        @keyframes ame-fadein { from { opacity: 0 } to { opacity: 1 } }
       }
     </style>
   </head>
 
   <body>
-    <div id="ame-boot"><div><div class="ame-mark"><img src="/ame-app/boot-wordmark.png" alt="âme" width="200"><div class="ame-cover"></div></div><div class="ame-wait"></div></div></div>
+    <div id="ame-boot"><div><div class="ame-mark"><img src="/ame-app/boot-wordmark.png" alt="âme" width="200"><div class="ame-sweep"></div></div><div class="ame-wait"></div></div></div>
     <script>
       // The app calls this when it has fonts and its first data, so the seam is
       // invisible: the React splash is already painted underneath before this
@@ -101,6 +108,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-2ad2b9535168aa0a93279eb740f3449c.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-f3d52fac9a93c1dbfe59d67e0fa34e30.js" defer></script>
 </body>
 </html>
