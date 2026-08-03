@@ -48,26 +48,34 @@
         opacity: 1; transition: opacity 420ms ease-out;
       }
       #ame-boot.ame-boot-out { opacity: 0; pointer-events: none; }
-      #ame-boot img {
-        width: 92px; height: 92px;
-        animation: ame-breathe 5s cubic-bezier(.4,0,.5,1) infinite;
+      /* The opening: the name writes itself. A sand cover slides off the
+         wordmark (translate-only — the mark itself never moves or scales,
+         the owner's rule), then a hair-thin line below breathes in opacity
+         while the bundle keeps loading. All compositor work. */
+      .ame-mark { position: relative; overflow: hidden; }
+      .ame-mark img { display: block; width: 200px; height: auto; }
+      .ame-cover {
+        position: absolute; top: -4px; bottom: -4px; left: -6px;
+        width: calc(100% + 12px); background: #DDD4C5;
+        animation: ame-write 950ms cubic-bezier(.65,0,.35,1) 150ms forwards;
       }
-      /* The same breath the in-app loader uses, expressed in CSS so it runs on
-         the compositor while the main thread is busy parsing the bundle. */
-      @keyframes ame-breathe {
-        0%   { transform: scale(.93) translateY(3px); opacity: .75; }
-        38%  { transform: scale(1.07) translateY(-3px); opacity: 1; }
-        100% { transform: scale(.93) translateY(3px); opacity: .75; }
+      @keyframes ame-write { to { transform: translateX(calc(100% + 12px)); } }
+      .ame-wait {
+        margin: 28px auto 0; width: 36px; height: 1px; background: #311D10;
+        opacity: 0; animation: ame-waitpulse 2.6s ease-in-out 1.6s infinite;
       }
+      @keyframes ame-waitpulse { 0%,100% { opacity: 0 } 50% { opacity: .35 } }
       @media (prefers-reduced-motion: reduce) {
-        #ame-boot img { animation: ame-fade 1.8s ease-in-out infinite; }
-        @keyframes ame-fade { 0%,100% { opacity:.6 } 50% { opacity:1 } }
+        .ame-cover { animation: none; opacity: 0; }
+        .ame-wait { animation: none; }
+        .ame-mark img { animation: ame-fadein .4s ease-out both; }
+        @keyframes ame-fadein { from { opacity: 0 } to { opacity: 1 } }
       }
     </style>
   </head>
 
   <body>
-    <div id="ame-boot"><img src="/ame-app/boot-mark.png" alt="âme" width="92" height="92"></div>
+    <div id="ame-boot"><div><div class="ame-mark"><img src="/ame-app/boot-wordmark.png" alt="âme" width="200"><div class="ame-cover"></div></div><div class="ame-wait"></div></div></div>
     <script>
       // The app calls this when it has fonts and its first data, so the seam is
       // invisible: the React splash is already painted underneath before this
@@ -93,6 +101,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-327d9e9082ad9e161bf3bb646bfd3f91.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-1e326add10049239dc694589c634eeef.js" defer></script>
 </body>
 </html>
