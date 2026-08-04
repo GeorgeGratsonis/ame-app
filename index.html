@@ -44,7 +44,10 @@
       #ame-boot {
         position: fixed; inset: 0; z-index: 2147483647;
         background: #DDD4C5;
-        display: flex; align-items: center; justify-content: center;
+        display: flex; align-items: flex-start; justify-content: center;
+        /* The logo's anchor — the same 32% the sign-in screen uses, so the
+           handoff moves nothing. */
+        padding-top: 32vh;
         opacity: 1; transition: opacity 420ms ease-out;
       }
       #ame-boot.ame-boot-out { opacity: 0; pointer-events: none; }
@@ -108,6 +111,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-f3d52fac9a93c1dbfe59d67e0fa34e30.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-33a549448c388fc5ef4c4481f9e58d8d.js" defer></script>
 </body>
 </html>
