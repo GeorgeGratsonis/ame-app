@@ -38,10 +38,15 @@
 
       /* iOS Safari's 100% tracks the ICB, which ignores the collapsing
          toolbar — the tab bar would float above freed space. dvh follows the
-         VISIBLE viewport in-browser and equals the full screen when the app
-         runs standalone from the home screen, so it is right in both worlds. */
+         VISIBLE viewport, so it is right inside a browser tab. */
       @supports (height: 100dvh) {
         html, body, #root { height: 100dvh !important; }
+      }
+      /* But NOT when installed: standalone iOS computes dvh without the
+         home-indicator band, which stranded the tab bar above a sand strip.
+         There 100% is the full screen — declared after, so it wins. */
+      @media all and (display-mode: standalone), all and (display-mode: fullscreen) {
+        html, body, #root { height: 100% !important; }
       }
 
       /* The boot layer. Painted by the browser before a single line of app code
@@ -109,7 +114,7 @@
           setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
         }
         window.__ameBootDismiss = dismiss;
-        window.__AME_BUILD = "97eeb170afe6d30336f79e4a28695b48";
+        window.__AME_BUILD = "f6482512ff217973cefc003b468301df";
         setTimeout(dismiss, 12000);
       })();
     </script>
@@ -120,6 +125,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-97eeb170afe6d30336f79e4a28695b48.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-f6482512ff217973cefc003b468301df.js" defer></script>
 </body>
 </html>
