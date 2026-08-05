@@ -36,6 +36,14 @@
       html, body { background-color: #DDD4C5; overscroll-behavior: none; }
       body { margin: 0; -webkit-tap-highlight-color: transparent; }
 
+      /* iOS Safari's 100% tracks the ICB, which ignores the collapsing
+         toolbar — the tab bar would float above freed space. dvh follows the
+         VISIBLE viewport in-browser and equals the full screen when the app
+         runs standalone from the home screen, so it is right in both worlds. */
+      @supports (height: 100dvh) {
+        html, body, #root { height: 100dvh !important; }
+      }
+
       /* The boot layer. Painted by the browser before a single line of app code
          runs, which is the whole point: the JS bundle is megabytes and until it
          parses, React cannot draw anything at all. Without this the app opens on
@@ -101,7 +109,7 @@
           setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
         }
         window.__ameBootDismiss = dismiss;
-        window.__AME_BUILD = "9d4927fed45fcd34be5d53858bc6d227";
+        window.__AME_BUILD = "2669ca369c1849c3eacd66f9af63d592";
         setTimeout(dismiss, 12000);
       })();
     </script>
@@ -112,6 +120,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-9d4927fed45fcd34be5d53858bc6d227.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-2669ca369c1849c3eacd66f9af63d592.js" defer></script>
 </body>
 </html>
