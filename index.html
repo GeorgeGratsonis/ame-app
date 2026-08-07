@@ -42,9 +42,11 @@
       @supports (height: 100dvh) {
         html, body, #root { height: 100dvh !important; }
       }
-      /* But NOT when installed: standalone iOS computes dvh without the
-         home-indicator band, which stranded the tab bar above a sand strip.
-         There 100% is the full screen — declared after, so it wins. */
+      /* But NOT when installed: standalone iOS computes BOTH 100% and dvh
+         without the home-indicator band (measured 812 on an 874pt screen),
+         which stranded the tab bar above a sand strip AND made the boot
+         logo (32vh of 874) miss the sign-in logo (32% of 812). Only vh
+         equals the full screen there — declared after, so it wins. */
       @media all and (display-mode: standalone), all and (display-mode: fullscreen) {
         html, body, #root { height: 100vh !important; }
       }
@@ -114,7 +116,7 @@
           setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
         }
         window.__ameBootDismiss = dismiss;
-        window.__AME_BUILD = "f6482512ff217973cefc003b468301df";
+        window.__AME_BUILD = "2beec0dd8efcad42ec0845dcbd4387af";
         setTimeout(dismiss, 12000);
       })();
     </script>
@@ -125,6 +127,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/ame-app/_expo/static/js/web/entry-f6482512ff217973cefc003b468301df.js" defer></script>
+  <script src="/ame-app/_expo/static/js/web/entry-2beec0dd8efcad42ec0845dcbd4387af.js" defer></script>
 </body>
 </html>
