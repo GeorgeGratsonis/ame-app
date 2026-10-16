@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el" translate="no" class="notranslate">
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -37,6 +37,11 @@
          is the documented opt-out — the page states its scheme, the browser
          stops guessing. iOS never guessed; now both agree. -->
     <meta name="color-scheme" content="light">
+    <!-- The app carries its own Greek and English. A browser's automatic
+         translation only breaks it: a client's phone turned «Mat» into
+         «Χαλάκι» and «Barre» into «Μπαρ». This is the documented opt-out for
+         Chrome / Google Translate; translate="no" on <html> covers the rest. -->
+    <meta name="google" content="notranslate">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://ofasttbytudsgiewtxwl.supabase.co" crossorigin>
@@ -132,7 +137,7 @@
           setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
         }
         window.__ameBootDismiss = dismiss;
-        window.__AME_BUILD = "61d4544dd97a32cee223d5749a9ee976";
+        window.__AME_BUILD = "6203e44b1ad3f4ab2f1ddc0ac49cabeb";
         setTimeout(dismiss, 12000);
       })();
     </script>
@@ -143,6 +148,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/_expo/static/js/web/entry-61d4544dd97a32cee223d5749a9ee976.js" defer></script>
+  <script src="/_expo/static/js/web/entry-6203e44b1ad3f4ab2f1ddc0ac49cabeb.js" defer></script>
 </body>
 </html>
